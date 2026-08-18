@@ -31,7 +31,7 @@
   "scripts": {
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage",
-    "check": "node --check src/*.js && node --check bin/oss-license-guard.js",
+    "check": "node --check src/check.js && node --check src/cli.js && node --check src/config.js && node --check src/dependencies.js && node --check src/errors.js && node --check src/exemptions.js && node --check src/index.js && node --check src/lockfiles.js && node --check src/match.js && node --check src/policy.js && node --check src/remote-policy.js && node --check src/report.js && node --check bin/oss-license-guard.js",
     "licenses": "node bin/oss-license-guard.js verify"
   },
   "engines": {
