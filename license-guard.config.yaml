@@ -1,0 +1,32 @@
+schemaVersion: 1
+
+project:
+  license: Apache-2.0
+
+dependencies:
+  include: all
+  packageManager: npm
+  includePeer: true
+  includeOptional: true
+  requireLockfile: true
+  validateLockfile: true
+
+policy:
+  preset: oss-distribution
+  matrix:
+    additions:
+      Apache-2.0:
+        # Explicit project policy for tool/runtime and SPDX data dependencies.
+        - BlueOak-1.0.0
+        - CC-BY-3.0
+        - CC0-1.0
+        - Python-2.0
+
+report:
+  path: THIRD-PARTY-LICENSES.md
+  format: markdown
+  includeLicenseText: true
+  includeExemptions: true
+  workspaceMode: combined
+
+exemptions: []

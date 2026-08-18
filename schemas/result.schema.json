@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:oss-license-guard:result:v1",
+  "title": "oss-license-guard result v1",
+  "type": "object",
+  "required": ["packageManager", "policy", "results", "errors", "warnings"],
+  "properties": {
+    "packageManager": { "type": ["string", "null"] },
+    "policy": {
+      "type": "object",
+      "required": ["preset", "projectLicense", "allowed"],
+      "properties": {
+        "preset": { "type": "string" },
+        "projectLicense": { "type": "string" },
+        "allowed": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "version", "status", "allowed", "warnings"],
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "licenseExpression": { "type": ["string", "null"] },
+          "status": { "type": "string" },
+          "allowed": { "type": "boolean" },
+          "selected": { "type": "string" },
+          "reason": { "type": "string" },
+          "evidenceSources": { "type": "array", "items": { "type": "string" } },
+          "projects": { "type": "array", "items": { "type": "string" } },
+          "warnings": { "type": "array", "items": { "type": "string" } },
+          "exemption": { "type": "object" }
+        }
+      }
+    },
+    "errors": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } }
+  }
+}

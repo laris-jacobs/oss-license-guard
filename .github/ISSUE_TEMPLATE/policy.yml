@@ -1,0 +1,21 @@
+name: Policy proposal
+description: Propose a documented license-matrix change
+body:
+  - type: input
+    id: project-license
+    attributes:
+      label: Project SPDX license
+    validations:
+      required: true
+  - type: input
+    id: dependency-license
+    attributes:
+      label: Dependency SPDX license
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale and authoritative sources
+    validations:
+      required: true

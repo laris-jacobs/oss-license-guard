@@ -1,0 +1,57 @@
+{
+  "name": "oss-license-guard",
+  "version": "0.1.0",
+  "description": "Policy-driven dependency license checker and third-party license report generator",
+  "keywords": ["license", "compliance", "spdx", "third-party", "npm", "pnpm", "yarn"],
+  "author": "Laris Jacobs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laris-jacobs/oss-license-guard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/laris-jacobs/oss-license-guard/issues"
+  },
+  "type": "module",
+  "license": "Apache-2.0",
+  "bin": {
+    "oss-license-guard": "./bin/oss-license-guard.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "schemas",
+    "docs",
+    "LICENSE",
+    "README.md",
+    "THIRD-PARTY-LICENSES.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage",
+    "check": "node --check src/*.js && node --check bin/oss-license-guard.js",
+    "licenses": "node bin/oss-license-guard.js verify"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "@yarnpkg/parsers": "^3.1.0",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "handlebars": "^4.7.9",
+    "minimatch": "^10.2.6",
+    "semver": "^7.8.5",
+    "spdx-expression-parse": "^4.0.0",
+    "spdx-license-ids": "^3.0.23",
+    "yaml": "^2.9.0"
+  }
+}

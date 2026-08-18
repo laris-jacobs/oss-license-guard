@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/oss-license-guard/config.schema.json",
+  "title": "oss-license-guard configuration",
+  "type": "object",
+  "required": ["schemaVersion", "project"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "$schema": { "type": "string" },
+    "project": {
+      "type": "object",
+      "required": ["license"],
+      "properties": { "license": { "type": "string", "minLength": 1 } },
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "include": { "enum": ["production", "development", "all"] },
+        "packageManager": { "enum": ["auto", "npm", "pnpm", "yarn"] },
+        "includePeer": { "type": "boolean" },
+        "includeOptional": { "type": "boolean" },
+        "requireLockfile": { "type": "boolean" },
+        "validateLockfile": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "preset": { "enum": ["oss-distribution", "internal-application"] },
+        "unknownLicense": { "enum": ["allow", "warn", "deny"] },
+        "unlicensedPackage": { "enum": ["allow", "warn", "deny"] },
+        "ambiguousExpression": { "enum": ["allow", "warn", "deny"] },
+        "missingLicenseText": { "enum": ["allow", "warn", "deny"] },
+        "cacheDir": { "type": "string" },
+        "matrix": {
+          "type": "object",
+          "properties": {
+            "sources": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  { "const": "builtin" },
+                  {
+                    "type": "object",
+                    "required": ["url", "sha256"],
+                    "properties": {
+                      "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+                      "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "additions": { "$ref": "#/$defs/matrixRows" },
+            "removals": { "$ref": "#/$defs/matrixRows" }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "strictUnusedExemptions": { "type": "boolean" },
+    "exemptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["package"],
+        "properties": {
+          "package": { "type": "string" },
+          "versions": { "type": "string" },
+          "licenses": { "type": "array", "items": { "type": "string" } },
+          "reason": { "type": "string" },
+          "approvedBy": { "type": "string" },
+          "expires": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "format": { "enum": ["markdown", "json"] },
+        "template": { "type": "string" },
+        "includeLicenseText": { "type": "boolean" },
+        "includeExemptions": { "type": "boolean" },
+        "title": { "type": "string" },
+        "workspaceMode": { "enum": ["combined", "per-workspace"] },
+        "workspacePath": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "matrixRows": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 },
+        "uniqueItems": true
+      }
+    }
+  }
+}
